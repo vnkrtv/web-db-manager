@@ -9,7 +9,9 @@ itsdangerous==1.1.0
 Jinja2==2.11.1
 Mako==1.1.2
 MarkupSafe==1.1.1
+mssql==1.0.1
 pymssql==2.1.4
+pyodbc==4.0.30
 python-dateutil==2.8.1
 python-editor==1.0.4
 six==1.14.0
