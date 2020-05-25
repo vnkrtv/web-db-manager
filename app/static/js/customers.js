@@ -1,29 +1,10 @@
-function main() {
-    const table = document.getElementById('table');
-
-    for (let i = 1; i <= table.rows.length; i++) {
-        document.getElementById(`del_img_${i}`).style.display = "none";
-        document.getElementById(`upd_img_${i}`).style.display = "none";
-    }
-}
-
-function showImages(row_index) {
-    document.getElementById(`del_img_${row_index}`).style.display = "";
-    document.getElementById(`upd_img_${row_index}`).style.display = "";
-}
-
-function hideImages(row_index) {
-    document.getElementById(`del_img_${row_index}`).style.display = "none";
-    document.getElementById(`upd_img_${row_index}`).style.display = "none";
-}
-
 function fillDeleteModal(id) {
     const eChildren = document.getElementById(id).children;
     const customer_id = eChildren[1].children[0].innerHTML;
     const fullname = eChildren[2].innerHTML;
     document.querySelector('input#del_id').value = customer_id;
     document.querySelector('p#del_info').innerHTML = `Are you sure that you want remove ${fullname}?` +
-        `This action cannot be canceled.`
+        ` This action cannot be canceled.`
 }
 
 function fillUpdateModal(id) {
