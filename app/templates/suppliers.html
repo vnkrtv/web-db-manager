@@ -80,6 +80,7 @@
    <p id='del_info'></p>
    <div class="modal-footer">
     <form action="" method="post">
+        {{ form.hidden_tag() }}
        <input type="hidden" id="del_id" name="supplier_id" value="">
 	     <button type="button" class="btn btn-outline-secondary js-modal-close">Cancel</button>
        {{ form.submit(value="Delete", class="btn btn-outline-danger") }}
