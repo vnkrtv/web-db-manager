@@ -1,7 +1,9 @@
 from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import (
-    StringField, DateField, PasswordField, SubmitField, DateTimeField, FloatField, SelectField, IntegerField)
+    StringField, DateField, PasswordField, SubmitField, DateTimeField)
+from wtforms import (
+    FloatField, SelectField, IntegerField, BooleanField)
 from wtforms.validators import (
     DataRequired, NumberRange, Length, Regexp)
 
@@ -46,6 +48,7 @@ class DiscountCardForm(FlaskForm):
     discount = FloatField('Discount', validators=[DataRequired(), NumberRange(min=0, max=1)])
     start_date = DateField('Start date', validators=[DataRequired()], default=datetime.utcnow)
     expiration = DateField('Expiration', validators=[DataRequired()])
+    is_blocked = BooleanField('Is blocked', default=False)
     submit = SubmitField('Add discount card')
 
 

@@ -277,20 +277,21 @@ class DiscountCardsStorage(MssqlStorage):
         self._cur.execute(sql)
         self._conn.commit()
 
-    def update_card(self, card_id: int, discount: float,
-                    start_date: datetime, expiration: datetime) -> None:
+    def update_card(self, card_id: int, discount: float, start_date: datetime,
+                    expiration: datetime, is_blocked: bool) -> None:
         sql = f"""UPDATE shopdb.dbo.DiscountCards 
                   SET discount = {discount}, start_date = '{start_date}',
-                      expiration = '{expiration}'
+                      expiration = '{expiration}', is_blocked = '{int(is_blocked)}'
                   WHERE card_id = {card_id}"""
         self._cur.execute(sql)
         self._conn.commit()
 
-    def add_card(self, discount: float, start_date: datetime, expiration: datetime) -> None:
+    def add_card(self, discount: float, start_date: datetime,
+                 expiration: datetime, is_blocked: bool) -> None:
         sql = f"""INSERT INTO
                     shopdb.dbo.DiscountCards(discount, start_date, expiration)
                   VALUES
-                    ('{discount}', '{start_date}', '{expiration}')"""
+                    ('{discount}', '{start_date}', '{expiration}', '{int(is_blocked)}')"""
         self._cur.execute(sql)
         self._conn.commit()
 
@@ -373,21 +374,22 @@ class PurchasesStorage(MssqlStorage):
         self._conn.commit()
 
     def update_purchase(self, purchase_id: int, product_id: int, worker_id: int,
-                        customer_id: int, quantity: int, total_cost: float, date: datetime) -> None:
+                        customer_id: int, quantity: int, date: datetime) -> None:
         sql = f"""UPDATE shopdb.dbo.Purchases 
                   SET product_id = {product_id}, worker_id = {worker_id},
                       customer_id = {customer_id}, quantity = {quantity},
-                      total_cost = {total_cost}, date = '{date}'
+                      date = '{date}'
                   WHERE purchase_id = {purchase_id}"""
         self._cur.execute(sql)
         self._conn.commit()
 
-    def add_purchase(self, product_id: int, worker_id: int, customer_id: int,
-                     quantity: int, total_cost: float, date: datetime) -> None:
+    def add_purchase(self, product_id: int, worker_id: int, 
+                     customer_id: int,
+                     quantity: int, date: datetime) -> None:
         sql = f"""INSERT INTO 
-                    shopdb.dbo.Purchases(product_id, worker_id, customer_id, quantity, total_cost, date)
+                    shopdb.dbo.Purchases(product_id, worker_id, customer_id, quantity, date)
                   VALUES
-                    ({product_id}, {worker_id}, {customer_id}, {quantity}, {total_cost}, '{date}')"""
+                    ({product_id}, {worker_id}, {customer_id}, {quantity}, '{date}')"""
         self._cur.execute(sql)
         self._conn.commit()
 

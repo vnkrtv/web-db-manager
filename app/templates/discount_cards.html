@@ -12,6 +12,7 @@
 	      <th>Discoint <img src='{{ sort_icon() }}' onclick="sortTable('table', 1)"></th>
 	      <th>Start date <img src='{{ sort_icon() }}' onclick="sortTable('table', 2)"></th>
 	      <th>Expiration <img src='{{ sort_icon() }}' onclick="sortTable('table', 3)"></th>
+        <th>Blocked <img src='{{ sort_icon() }}' onclick="sortTable('table', 4)"></th>
       </tr>
   </thead>
   <tbody>
@@ -22,6 +23,7 @@
 	      <td class="js-open-modal" data-modal="logs-modal">{{ card.1 }}</td>
 	      <td class="js-open-modal" data-modal="logs-modal">{{ card.2 }}</td>
 	      <td class="js-open-modal" data-modal="logs-modal">{{ card.3 }}</td>
+        <td class="js-open-modal" data-modal="logs-modal">{{ card.4 }}</td>
       </tr>
 	{% endfor %}
     </tbody>
@@ -39,6 +41,8 @@
         {{ form.start_date(class="form-control") }}<br>
         {{ form.expiration.label }}
         {{ form.expiration(class="form-control") }}<br>
+        {{ form.is_blocked.label }}
+        {{ form.is_blocked() }}<br>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary js-modal-close">Cancel</button>
           {{ form.submit(value="Add", class="btn btn-outline-success") }}
@@ -59,6 +63,8 @@
         {{ form.start_date(class="form-control") }}<br>
         {{ form.expiration.label }}
         {{ form.expiration(class="form-control") }}<br>
+        {{ form.is_blocked.label }}
+        {{ form.is_blocked() }}<br>
         <div class="modal-footer">
         	<button type="button" class="btn btn-outline-secondary js-modal-close">Cancel</button>
         	{{ form.submit(value="Update", class="btn btn-outline-success") }}

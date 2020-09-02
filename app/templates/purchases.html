@@ -14,7 +14,6 @@
 	      <th>Customer ID <img height="20" src='{{ sort_icon() }}' onclick="sortTableByNums('table', 3, false)"></th>
 	      <th>Quantity <img height="20" src='{{ sort_icon() }}' onclick="sortTableByNums('table', 4, false)"></th>
 	      <th>Date <img height="20" src='{{ sort_icon() }}' onclick="sortTable('table', 5)"></th>
-	      <th>Total cost <img height="20" src='{{ sort_icon() }}' onclick="sortTableByNums('table', 6, false)"></th>
       </tr>
   </thead>
   <tbody>
@@ -28,7 +27,6 @@
 	      <td class="js-open-modal" data-modal="logs-modal">{{ purchase.4 }}</td>
 	      <td class="js-open-modal" data-modal="logs-modal">{{ purchase.5 }}</td>
 	      <td class="js-open-modal" data-modal="logs-modal">{{ purchase.6 }}</td>
-	      <td class="js-open-modal" data-modal="logs-modal">{{ purchase.7 }}</td>
       </tr>
 	{% endfor %}
     </tbody>
@@ -40,8 +38,6 @@
    <hr class="my hr4">
     <form action="" id="add_form" method="post">
         {{ form.hidden_tag() }}
-        {{ form.total_cost.label }}
-        {{ form.total_cost(class="form-control") }}<br>
         {{ form.quantity.label }}
         {{ form.quantity(class="form-control") }}<br>
         {{ form.date.label }}
@@ -66,8 +62,6 @@
     <form action="" method="post">
         <input type="hidden" id="upd_id" name="purchase_id" value="">
         {{ form.hidden_tag() }}
-        {{ form.total_cost.label }}
-        {{ form.total_cost(class="form-control") }}<br>
         {{ form.quantity.label }}
         {{ form.quantity(class="form-control") }}<br>
         {{ form.date.label }}

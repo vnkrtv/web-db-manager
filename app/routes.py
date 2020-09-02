@@ -59,7 +59,6 @@ def get_logs():
         logs_table_name=logs_table_name,
         id_field_name=id_field_name,
         obj_id=obj_id)
-    print(logs)
     return jsonify({'logs': logs})
 
 
@@ -405,7 +404,8 @@ class DiscountCardAPI(MethodView):
                     card_id=request.form['card_id'],
                     discount=form.discount.data,
                     start_date=form.start_date.data,
-                    expiration=form.expiration.data)
+                    expiration=form.expiration.data,
+                    is_blocked=form.is_blocked.data)
                 message = f'Information about card with {form.discount.data * 100}% discount was successfully updated.'
                 self.context['message'] = message
             except (pymssql.OperationalError, pymssql.InterfaceError, pymssql.IntegrityError):
@@ -423,7 +423,8 @@ class DiscountCardAPI(MethodView):
                 storage.add_card(
                     discount=form.discount.data,
                     start_date=form.start_date.data,
-                    expiration=form.expiration.data)
+                    expiration=form.expiration.data,
+                    is_blocked=form.is_blocked.data)
                 message = f'Discount card {form.discount.data * 100}% was successfully added to database.'
                 self.context['message'] = message
             except (pymssql.OperationalError, pymssql.InterfaceError, pymssql.IntegrityError):
@@ -566,7 +567,6 @@ class PurchaseAPI(MethodView):
                 worker_id = form.worker_id.choices[worker_num][1] if worker_num else "NULL"
                 storage.update_purchase(
                     purchase_id=request.form['purchase_id'],
-                    total_cost=form.total_cost.data,
                     quantity=form.quantity.data,
                     date=form.date.data,
                     product_id=form.product_id.choices[form.product_id.data][1],
@@ -589,7 +589,6 @@ class PurchaseAPI(MethodView):
                 worker_num = form.worker_id.data
                 worker_id = form.worker_id.choices[worker_num][1] if worker_num else 'NULL'
                 storage.add_purchase(
-                    total_cost=form.total_cost.data,
                     quantity=form.quantity.data,
                     date=form.date.data,
                     product_id=form.product_id.choices[form.product_id.data][1],
