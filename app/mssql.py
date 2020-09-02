@@ -45,6 +45,40 @@ class MssqlStorage:
         return pymssql.connect(server, user, password, dbname)
 
 
+class ViewsStorage(MssqlStorage):
+
+    @staticmethod
+    def get_connection(conn: pymssql.Connection):
+        obj = ViewsStorage()
+        obj._conn = conn
+        obj._cur = conn.cursor()
+        return obj
+
+    def get_objects(self, view_name: str) -> list:
+        self._cur.execute(f'SELECT * FROM shopdb.dbo.{view_name}')
+        objects = []
+        row = self._cur.fetchone()
+        while row:
+            row = [item or '-' for item in row]
+            objects.append(row)
+            row = self._cur.fetchone()
+        return objects
+
+    def get_columns_names(self, view_name: str) -> list:
+        self._cur.execute(f"""SELECT COLUMN_NAME 
+                              FROM 
+                                INFORMATION_SCHEMA.COLUMNS
+                              WHERE 
+                                table_name = '{view_name}'""")
+        headers = []
+        row = self._cur.fetchone()
+        while row:
+            row = row[0].capitalize()
+            headers.append(' '.join(row.split('_')))
+            row = self._cur.fetchone()
+        return headers
+
+
 class WorkersStorage(MssqlStorage):
 
     @staticmethod

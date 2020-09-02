@@ -62,6 +62,18 @@ def get_logs():
     return jsonify({'logs': logs})
 
 
+@app.route('/views/<view_name>')
+def get_view(view_name):
+    storage = mssql.ViewsStorage.get_connection(
+        conn=mssql.get_conn())
+    context = {
+        'title': f'{view_name} | Shop database ',
+        'objects': storage.get_objects(view_name=view_name),
+        'headers': storage.get_columns_names(view_name=view_name)
+    }
+    return render_template('views.html', **context)
+
+
 class WorkerAPI(MethodView):
     decorators = [login_required, mssql.check_conn]
     template = 'workers.html'

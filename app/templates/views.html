@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<input class="form-control" type="text" placeholder="Search..." id="search" onkeyup='tableSearch("search", "table")'>
+<table id="table" class="table table-hover">
+    <thead>
+      <tr>
+      {% for header in headers %}
+        <th>{{ header }}</th>
+      {% endfor %}
+      </tr>
+  </thead>
+  <tbody>
+  	{% for object in objects %}
+	  <tr>
+	      <td>{{ object.0 }}</td>
+	      <td>{{ object.1 }}</td>
+	      <td>{{ object.2 }}</td>
+	      <td>{{ object.3 }}</td>
+	      <td>{{ object.4 }}</td>
+	      <td>{{ object.5 }}</td>
+      </tr>
+	{% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
