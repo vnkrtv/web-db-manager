@@ -1,5 +1,5 @@
 FROM snakepacker/python:all as builder
-MAINTAINER LeadNess
+MAINTAINER vnkrtv
 
 COPY requirements.txt /mnt/
 RUN apt-get update \
